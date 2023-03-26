@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="AudioStreamMicrophone" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="record" type="Button" parent="."]
+margin_left = 177.0
+margin_top = 85.0
+margin_right = 435.0
+margin_bottom = 186.0
+rect_pivot_offset = Vector2( -22, 0 )
+text = "record"
+
+[node name="play" type="Button" parent="."]
+margin_left = 177.0
+margin_top = 317.0
+margin_right = 435.0
+margin_bottom = 418.0
+rect_pivot_offset = Vector2( -22, 0 )
+text = "play"
+
+[node name="AudioStreamRecord" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 156, 104 )
+stream = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 312, 208 )

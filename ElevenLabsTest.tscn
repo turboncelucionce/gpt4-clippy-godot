@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ElevenLabsButton.gd" type="Script" id=1]
+[ext_resource path="res://PlayAudioScript.gd" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+margin_left = 100.0
+margin_top = 79.0
+margin_right = 291.0
+margin_bottom = 157.0
+text = "Say phrase"
+script = ExtResource( 1 )
+
+[node name="TextEdit" type="TextEdit" parent="Button"]
+margin_left = 403.0
+margin_right = 628.0
+margin_bottom = 110.0
+text = "Hi!"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Button"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Button"]
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 121.0
+margin_top = 226.0
+margin_right = 270.0
+margin_bottom = 284.0
+text = "Play audio"
+script = ExtResource( 2 )
+
+[connection signal="button_up" from="Button" to="Button" method="_on_Button_button_up"]
+[connection signal="request_completed" from="Button/HTTPRequest" to="Button" method="_on_HTTPRequest_request_completed"]
+[connection signal="button_up" from="Button2" to="Button2" method="_on_Button2_button_up"]

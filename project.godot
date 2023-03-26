@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="Clippy!"
 config/description="Your friendly virtual assistant."
-run/main_scene="res://ApiTest2.tscn"
+run/main_scene="res://ClippyScene.tscn"
 config/icon="res://icon.png"
 
 [audio]
@@ -45,7 +45,7 @@ window/energy_saving/keep_screen_on=false
 
 [gdnative]
 
-singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
+singletons=[  ]
 
 [gui]
 

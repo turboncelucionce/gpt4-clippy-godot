@@ -11,17 +11,17 @@ onready var ClippyScene = get_node("/root/ClippyScene")
 func _ready():
 	if EnableElevenLabs == true:
 		if CharacterVoice == "Char 1":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		if CharacterVoice == "Char 2":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		if CharacterVoice == "Char 3":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		if CharacterVoice == "Char 4":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		if CharacterVoice == "Char 5":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		if CharacterVoice == "Char 6":
-			ElevenAIVoiceKey = ""
+			ElevenAIVoiceKey = "VOICE KEY HERE!!!"
 		print("Voice set as " + CharacterVoice)
 	else:
 		print("ElevenLabs disabled.")

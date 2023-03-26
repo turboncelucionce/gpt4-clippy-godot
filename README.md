@@ -40,3 +40,4 @@ This was my first time coding something. The code is extremely messy. It's also 
 - Setup an idle animation system
 - Import all of the anims from the sprite sheet
 - Fix the record button (it doesn't work on export?)
+- Add a way to control Clippy's volume

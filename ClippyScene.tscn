@@ -5154,6 +5154,7 @@ shortcut = SubResource( 1056 )
 
 [node name="ClippyScene" type="Node2D"]
 script = ExtResource( 6 )
+GPT_model = "gpt-4"
 AFK_Timer = 1800
 
 [node name="SendButton" type="Button" parent="."]

@@ -23,6 +23,7 @@ _global_script_class_icons={
 config/name="Clippy!"
 config/description="Your friendly virtual assistant."
 run/main_scene="res://ClippyScene.tscn"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [audio]

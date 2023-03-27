@@ -1,3 +1,4 @@
+
 # GPT-4 (or 3.5)-Powered Clippy
 
 ## Overview
@@ -6,7 +7,7 @@ This is a little godot project that makes Microsoft Clippy appear on your deskto
 
 - You can talk to Clippy directly using your microphone. The audio is automatically transcribed using OpenAI's Whisper API.
 - Clippy can talk realistically using any voice you want by providing an ElevenLabs API key and your character voices.
-- Clippy reacts to the user's input, like the user hovering their mouse over him, sending blank messages, being ignored for long periods of time, or clicking on him repeatedly. In the code, these are referred to as "nonverbal" actions.
+- Clippy reacts to the user's input, like the user hovering their mouse over him, sending blank messages, being ignored for long periods of time, or clicking on him repeatedly. (In the code, these are referred to as "nonverbal" actions.)
 - Clippy can memorize things between conversations.
 - Clippy can be dragged across the screen and set to be Always On Top. 
 
@@ -21,23 +22,17 @@ You also need to make an account on ElevenLabs and get an API key if you want Cl
 
 ### How to setup:
 
-- Open the project in Godot
-- Navigate to the root node "**ClippyScene**". In the inspector, paste your OpenAI API Key into the "**Open Ai Key**" slot. Make sure "**Enable Open Ai**" is enabled.  
-- Navigate to the **RecordButton** node. In the inspector, paste your OpenAI API Key into the "**Openai Api Key**" slot.
-- Navigate to the **ElevenLabsHandler** node.
-	- If you want to disable ElevenLabs, just uncheck "**Enable Eleven Labs**"
-	- If you want to enable ElevenLabs, paste your API key in the Inspector, and paste in the ElevenLabs "voice keys" to that node's script (line 14, 16, 18...). This allows you to quickly change the voice if you've setup multiple characters on your account.
-- Save and run the scene! Clippy should work.
+- When launching Clippy for the first time, he asks for your API keys. These are then saved in a json file. You can delete that file any time by right-clicking on Clippy, then selecting "Delete memory and exit".
+- After inputting the API keys and assuming they are correct, Clippy will remember them and everything should work!
 
 ## TODO
 
 This was my first time coding something. The code is extremely messy. It's also missing a lot of stuff.
 
 - Add any kind of error handling whatsoever when sending HTTP requests. Clippy sometimes randomly crashes or hangs
-- Make it so that the user doesn't have to input the API keys in the code. **This makes sharing the complied .exe extremely unsafe.**
+- Add a way to switch from GPT-3.5 or GPT-4 and vice-versa directly in runtime.
 - Add sounds
 - Add more "nonverbal" actions that Clippy detects and reacts to (like being dragged around a lot, or checking processes being launched on the computer, reacting if the user is playing games, make Clippy react if he's placed close to the recycle bin, etc)
 - Setup an idle animation system
 - Import all of the anims from the sprite sheet
-- Fix the record button (it doesn't work on export?)
 - Add a way to control Clippy's volume

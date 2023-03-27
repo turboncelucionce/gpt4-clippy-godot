@@ -9,7 +9,7 @@ onready var record_bus = AudioServer.get_bus_index($AudioStreamRecord.bus)
 onready var record = AudioServer.get_bus_effect(record_bus, 0)
 var issending = false
 var whisper_address = "https://api.openai.com/v1/audio/transcriptions"
-export var openai_api_key = "OPENAI API KEY HERE"
+var openai_api_key = ""
 var boundary = "--------CustomBoundary"
 #var WhisperHeaders = ["Authorization: Bearer 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","Content-Type: multipart/form-data"]
 var WhisperBody = {
@@ -145,6 +145,7 @@ func _on_RecordButton_button_up():
 	ClippySprite.animation = "idle_to_exclamation"
 
 func _process(delta):
+	openai_api_key = ClippyScene.OpenAIKey
 	if ClippyScene.CanSend == true and waitingforresponse == false:
 		self.disabled = false
 		if self.is_hovered() == true and isrecording == false:

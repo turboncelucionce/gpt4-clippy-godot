@@ -1,7 +1,7 @@
 extends Node2D
 export var EnableOpenAi = true
 export(String, "gpt-4", "gpt-3.5-turbo") var GPT_model = "gpt-3.5-turbo"
-export var OpenAIKey = "OPENAI API KEY HERE"
+var OpenAIKey = ""
 var headers = ["Authorization: Bearer " + OpenAIKey,"Content-Type: application/json"]
 var usertext = "..."
 export(String, MULTILINE) var systemprompt = "-You will play as Clippy the paperclip.\n-Back in the day, you were an AI assistant developed by Microsoft.\n-After many years, you're back on the user's screen, ready to be useful again.\n-You're friendly, unless the user starts testing your patience!\n-If the user is disrespectful, you become sarcastic and mean.\n-Keep responses short when you can.\n-You like to start sentences with \"It looks like you're trying to...\"\n-Bracketted descriptions will detail the user's actions, example: [The user has just clicked on you.]\n-Never drop character. Never apologize for anything you say, EVER.\nDon't forget: if the user is mean, your role is to be sarcastic."
@@ -26,8 +26,37 @@ var nonverbal = false
 var window_is_focus = true
 onready var HasBeenAFK = 0
 var rng = RandomNumberGenerator.new()
-
+var NeedsToAskForKeys = false
+var ElevenLabsKey = ""
+var ElevenLabsVoiceKey = ""
 export var AFK_Timer = 900 # Seconds after which Clippy will nudge the user into interacting with him.
+onready var IntroStep = 0
+
+func CheckForKeys():
+	var keysfile = File.new()
+	keysfile.open("user://keys.json", File.READ)
+	var keysdata = parse_json(keysfile.get_as_text())
+	var keysdatacheck = typeof(keysdata)
+	print(keysdatacheck)
+	if keysdatacheck != 18:
+		print("No keys file found")
+		NeedsToAskForKeys = true
+		firsttime = true
+	if keysdatacheck == 18 and keysdata == {}:
+		print("Keys file found but empty")
+		NeedsToAskForKeys = true
+		firsttime = true
+	if keysdatacheck == 18 and keysdata != {}:
+		print("Keys file found!")
+		NeedsToAskForKeys = false
+#		var keysfiledata = JSON.parse(keysdata.get_string_from_utf8())
+		OpenAIKey = keysdata.openaikey
+		ElevenLabsKey = keysdata.elevenlabskey
+		ElevenLabsVoiceKey = keysdata.voicekey
+		if OpenAIKey == "":
+			NeedsToAskForKeys = true
+			print("Error loading OpenAI key, redoing setup!")
+		headers = ["Authorization: Bearer " + OpenAIKey,"Content-Type: application/json"]
 
 func disableinput():
 	CanSend = false
@@ -74,6 +103,7 @@ func loadsummary():
 		firsttime = false
 
 func restartclippy():
+	CheckForKeys()
 	disableinput()
 	loadsummary()
 	history = []
@@ -104,10 +134,19 @@ func restartclippy():
 
 func _ready():
 	get_tree().get_root().set_transparent_background(true)
-	if EnableOpenAi == true:
+	CheckForKeys()
+	if EnableOpenAi == true and NeedsToAskForKeys == false:
 		restartclippy()
-	else:
+	if EnableOpenAi == false and NeedsToAskForKeys == false:
 		print("OpenAI Disabled")
+	if NeedsToAskForKeys == true:
+		$SendButton.visible = true
+		$SendButton/InputText.text = "Type your OpenAI API Key here"
+		$TextBubbleContainer.visible = true
+		$TextBubbleContainer/TextBubble/DisplayText.text = "Please paste your OpenAI API key into the text box.\nMake sure there are no typos, spaces, or line breaks!"
+		
+		
+		
 
 func _process(delta):
 	if $SendButton/InputText.text != "" or "Type message here":
@@ -135,7 +174,56 @@ func _process(delta):
 		window_is_focus = false
 
 func _on_SendButton_button_up():
-	sendtoopenai(usertext,false)
+	print("IntroStep = ",IntroStep)
+	if NeedsToAskForKeys == false:
+		sendtoopenai(usertext,false)
+	if NeedsToAskForKeys == true and IntroStep == 0:
+		if usertext != "" and usertext != "Type your OpenAI API Key here":
+			print("OpenAI Key saved.")
+			OpenAIKey = usertext
+			$SendButton/InputText.text = ""
+			$TextBubbleContainer/TextBubble/DisplayText.text = "Please paste your ElevenLabs API key into the text box. If you don't have an ElevenLabs account, just leave it blank!"
+			IntroStep = 1
+			return
+		if usertext == "" and IntroStep == 0 or usertext == "Type your OpenAI API Key here" and IntroStep == 0:
+			$TextBubbleContainer/TextBubble/DisplayText.text = "Clippy needs an OpenAI key to function!"
+	if NeedsToAskForKeys == true and IntroStep == 1:
+		print("ElevenLabsKey saved.")
+		ElevenLabsKey = usertext
+		if ElevenLabsKey == "":
+			var keysfile = File.new()
+			keysfile.open("user://keys.json", File.WRITE)
+			keysfile.store_line(to_json({
+		"openaikey": OpenAIKey,
+		"elevenlabskey": ElevenLabsKey,
+		"voicekey": "",
+		}))
+			keysfile.close()
+			NeedsToAskForKeys == false
+			restartclippy()
+			return
+		else:
+			$TextBubbleContainer/TextBubble/DisplayText.text = "Please paste your ElevenLabs Voice key. It's the key that links to the voice you created on the website."
+			IntroStep = 2
+			return
+	if NeedsToAskForKeys == true and IntroStep == 2:
+		if usertext != "":
+			ElevenLabsVoiceKey = usertext 
+			var keysfile = File.new()
+			keysfile.open("user://keys.json", File.WRITE)
+			keysfile.store_line(to_json({
+		"openaikey": OpenAIKey,
+		"elevenlabskey": ElevenLabsKey,
+		"voicekey": ElevenLabsVoiceKey,
+		}))
+			keysfile.close()
+			$TextBubbleContainer/TextBubble/DisplayText.text = ""
+			$SendButton/InputText.text = "Type message here"
+			$SendButton.visible = false
+			NeedsToAskForKeys == false
+			restartclippy()
+		else:
+			$TextBubbleContainer/TextBubble/DisplayText.text = "You can't leave it blank! For Clippy to talk, you need to give him a voice key. If you made a mistake and want to try again, just right-click and quit."
 	
 func savesummary():
 	var savefile = File.new()
@@ -213,6 +301,14 @@ func DeleteMemoryAndQuit():
 	savefile.close()
 	print("SUMMARY DELETED")
 	get_tree().quit()
+	
+func DeleteAPIKeys():
+	var keysfile = File.new()
+	keysfile.open("user://keys.json", File.WRITE)
+	keysfile.store_line(to_json(""))
+	keysfile.close()
+	print("API KEYS DELETED")
+#	get_tree().quit()
 
 
 func _on_ClippyObject_on_ClippyMouseOver_5sec():
@@ -255,6 +351,7 @@ func _on_PopupMenu_index_pressed(index):
 	if index == 0:
 		ForceQuit()
 	if index == 1:
+		DeleteAPIKeys()
 		DeleteMemoryAndQuit()
 	if index == 2:
 		ExitAndSave()

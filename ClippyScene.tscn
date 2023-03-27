@@ -5269,7 +5269,6 @@ text = "Response here"
 
 [node name="ElevenLabsHandler" type="Node2D" parent="."]
 script = ExtResource( 7 )
-EnableElevenLabs = false
 
 [node name="HTTPRequest2" type="HTTPRequest" parent="ElevenLabsHandler"]
 

@@ -1,4 +1,5 @@
 
+
 # GPT-4 (or 3.5)-Powered Clippy
 
 ![Clippy Screenshot](https://i.imgur.com/npgJMst.png)
@@ -20,22 +21,23 @@ For Clippy to function, you need to have an [OpenAI API Key](https://platform.op
 
 The projet was made on **Godot V3.5.1.stable.official**. It may work on other versions.
 
-You also need to make an account on ElevenLabs and get an API key if you want Clippy to be able to speak.
+Optionally, you can make an account on [ElevenLabs](https://beta.elevenlabs.io/) and get an API key if you want Clippy to be able to speak, then get the appropriate [Voice Key](https://api.elevenlabs.io/docs#/voices/Get_voices_v1_voices_get) of the voice you want to assign.
 
 ### How to setup:
 
-- When launching Clippy for the first time, he asks for your API keys. These are then saved in a json file. You can delete that file any time by right-clicking on Clippy, then selecting "Delete memory and exit".
+- When launching Clippy for the first time, he asks for your API keys. Just follow the instructions.
+- If you made a mistake, you can delete that keys any time by right-clicking on Clippy, then selecting "Delete memory and exit".
 - After inputting the API keys and assuming they are correct, Clippy will remember them and everything should work!
 
 ## TODO
 
-This was my first time coding something. The code is extremely messy. It's also missing a lot of stuff.
+I basically learned how to code with this project. Therefore, the code is extremely messy. It's also missing a lot of stuff.
 
 - Add any kind of error handling whatsoever when sending HTTP requests. Clippy sometimes randomly crashes or hangs
 - Add a system that tracks the length of the conversation and only sends the most recent messages when hitting Send, to avoid using up too many OpenAI tokens
 - Add a way to switch from GPT-3.5 or GPT-4 and vice-versa directly in runtime
 - Add sounds
 - Add more "nonverbal" actions that Clippy detects and reacts to (like being dragged around a lot, or checking processes being launched on the computer, reacting if the user is playing games, make Clippy react if he's placed close to the recycle bin, etc)
-- Setup an idle animation system
 - Import all of the anims from the sprite sheet
+- Setup an idle animation system
 - Add a way to control Clippy's volume

@@ -32,7 +32,8 @@ You also need to make an account on ElevenLabs and get an API key if you want Cl
 This was my first time coding something. The code is extremely messy. It's also missing a lot of stuff.
 
 - Add any kind of error handling whatsoever when sending HTTP requests. Clippy sometimes randomly crashes or hangs
-- Add a way to switch from GPT-3.5 or GPT-4 and vice-versa directly in runtime.
+- Add a system that tracks the length of the conversation and only sends the most recent messages when hitting Send, to avoid using up too many OpenAI tokens
+- Add a way to switch from GPT-3.5 or GPT-4 and vice-versa directly in runtime
 - Add sounds
 - Add more "nonverbal" actions that Clippy detects and reacts to (like being dragged around a lot, or checking processes being launched on the computer, reacting if the user is playing games, make Clippy react if he's placed close to the recycle bin, etc)
 - Setup an idle animation system

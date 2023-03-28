@@ -25,11 +25,29 @@ Optionally, you can make an account on [ElevenLabs](https://beta.elevenlabs.io/)
 
 ### How to setup:
 
+- You can download Clippy in the [Releases tab](https://github.com/turboncelucionce/gpt4-clippy-godot/releases/tag/release).
 - When launching Clippy for the first time, he asks for your API keys. Just follow the instructions.
+- An OpenAI key is required, but the ElevenLabs keys (the ones that make Clippy talk) are optional. There's a guide below on how to set it up.
 - If you made a mistake, you can delete the keys any time by right-clicking on Clippy, then selecting "Delete memory and exit".
 - After inputting the API keys and assuming they are correct, Clippy will remember them and everything should work!
 
-## TODO
+## (Optional) Give Clippy a voice by using an ElevenLabs key
+
+[ElevenLabs](https://beta.elevenlabs.io) is a website that lets people make super realistic AI voices. By making an account (and paying for a certain subscription tier), you can make Clippy talk.
+
+- Make an account and make sure you have enough credits. Keep in mind, if you input your API key into the Clippy app, he will use up credits whenever he talks!
+- Create a custom voice on the website (let's say you name it "Michael")
+- Copy your API key from your profile, save it somewhere safe
+- Go to the [API documentation](https://api.elevenlabs.io/docs#/voices/Get_voices_v1_voices_get)
+- In "GET /v1/voices", click on the "Try it out!" button
+- Paste your API key in the *xi-api-key* slot
+- Click on *Execute*
+- A long bit of code appears in "Response body". You can search for the name of the custom voice you made (in this case, "Michael") using CTRL+F
+- After finding it, there should be a bit that says *"voice_id":* right above it, followed by a long code. That code is your Voice Key! Save it somewhere safe.
+- When starting Clippy for the first time, he should ask for these codes. Simply give them to him! If he does not, right click on him > "delete memory and exit".
+
+
+### TODO
 
 I basically learned how to code with this project. Therefore, the code is extremely messy. It's also missing a lot of stuff.
 

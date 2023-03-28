@@ -26,7 +26,7 @@ Optionally, you can make an account on [ElevenLabs](https://beta.elevenlabs.io/)
 ### How to setup:
 
 - When launching Clippy for the first time, he asks for your API keys. Just follow the instructions.
-- If you made a mistake, you can delete that keys any time by right-clicking on Clippy, then selecting "Delete memory and exit".
+- If you made a mistake, you can delete the keys any time by right-clicking on Clippy, then selecting "Delete memory and exit".
 - After inputting the API keys and assuming they are correct, Clippy will remember them and everything should work!
 
 ## TODO

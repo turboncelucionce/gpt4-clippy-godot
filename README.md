@@ -42,3 +42,7 @@ I basically learned how to code with this project. Therefore, the code is extrem
 - Setup an idle animation system
 - Add a way to control Clippy's volume
 - Add a way to switch microphones.
+
+## Disclaimer
+
+Clippy is powered by OpenAI's GPT-3.5 or GPT-4. He may produce inappropriate or dangerous content and cannot reliably fact-check. I'm not responsible for the way you use it. Please don't be dumb.
